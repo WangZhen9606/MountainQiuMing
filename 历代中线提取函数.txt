@@ -1,0 +1,49 @@
+/******************************************************************/
+V1.5
+
+uint8 Find_Midpoint()
+{
+    //uint8 *pimg = (uint8 *)img;//img[i][j]
+    uint8 i,j;//行列
+    uint8 MiddleLine;
+    
+    //tmpimg = *pimg + i*CAMERA_W + j;
+    
+    j = 30;                     //x = 30
+    //向左检测
+    for(i = To_Left;i>End_Left;i-- ){
+      if(img[i][j]==0&&img[i+1][j]==0&&img[i-1][j]==1)
+      {
+        Left_Black = i;
+        Left_Black_Last = Left_Black;
+        break;
+      }
+      else{
+        Left_Black = 0;         //左边线未找到
+      }
+    }
+    //向右检测
+    for(i = To_Right;i<End_Right;i++ ){
+      if(img[i][j]==0&&img[i-1][j]==0&&img[i+1][j]==1)
+      {
+        Right_Black = i;
+        Right_Black_Last = Right_Black;
+        break;
+      }
+      else{
+        Right_Black = 0;        //右边线未找到
+      }
+    }
+    //检查是非寻找到两侧黑边
+    if(Left_Black == 0){
+      Left_Black = Left_Black_Last;
+    }
+    if(Right_Black == 0){
+      Right_Black = Right_Black_Last;
+    }
+    //计算中线
+    MiddleLine = (Left_Black+Right_Black)/2;
+
+    return MiddleLine;
+}
+/****************************************************************************/
